@@ -19,8 +19,8 @@ jobs:
 
       - name: Validate AWS OIDC role configuration
         run: |
-          if [ -z "${{ secrets['AWS_ROLE_TO_ASSUME'] }}" ]; then
-            echo "❌ AWS_ROLE_TO_ASSUME is not set."
+          if [ -z "${{ secrets['AWS_ROLE_ARN'] }}" ]; then
+            echo "❌ AWS_ROLE_ARN is not set."
             echo "Set it as a repository secret with the full IAM Role ARN."
             exit 1
           fi
@@ -28,7 +28,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ secrets['AWS_ROLE_TO_ASSUME'] }}
+          role-to-assume: ${{ secrets['AWS_ROLE_ARN'] }}
           aws-region: eu-west-1
           audience: sts.amazonaws.com
 
